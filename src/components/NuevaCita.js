@@ -60,6 +60,9 @@ class NuevaCita extends Component {
 
     //Agregar la cita al state de App
     crearNuevaCita(nuevaCita);
+
+    //Colocar en el state el stateInicial
+    this.setState(initialState)
   };
 
   render() {
