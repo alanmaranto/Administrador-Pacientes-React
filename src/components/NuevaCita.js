@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import uuid from 'uuid'
 
 const initialState = {
   cita: {
@@ -33,6 +34,7 @@ class NuevaCita extends Component {
 
   //cuando el usuario envia el formualrio
   handleSubmit = e => {
+    const { crearNuevaCita} = this.props;
     e.preventDefault();
 
     //extraer los valores del state
@@ -52,7 +54,13 @@ class NuevaCita extends Component {
       return;
     }
 
+    //generar objeto con los datos
+    const nuevaCita = {...this.state.cita}
+    nuevaCita.id = uuid();
+
     //Agregar la cita al state de App
+    crearNuevaCita(nuevaCita)
+
   };
 
   render() {
