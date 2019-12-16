@@ -1,44 +1,70 @@
 import React, { Component } from "react";
 
 const initialState = {
-    cita: {
-        mascota: '',
-        propietario: '',
-        fecha: '',
-        hora: '',
-        sintomas: '', 
-    }
-}
+  cita: {
+    mascota: "",
+    propietario: "",
+    fecha: "",
+    hora: "",
+    sintomas: ""
+  },
+  error: false
+};
 
 class NuevaCita extends Component {
-    constructor(props){
-        super(props);
-        this.state = initialState;
+  constructor(props) {
+    super(props);
+    this.state = initialState;
+  }
+
+  //cuando el usuario escribe en el state
+  handleChange = e => {
+    const { cita } = this.state;
+    console.log(`${e.target.name}: ${e.target.value}`);
+
+    //colocar lo que el usuario escribe en el state
+    this.setState({
+      cita: {
+        ...cita,
+        [e.target.name]: e.target.value
+      }
+    });
+  };
+
+  //cuando el usuario envia el formualrio
+  handleSubmit = e => {
+    e.preventDefault();
+
+    //extraer los valores del state
+    const { mascota, propietario, fecha, hora, sintomas } = this.state.cita;
+
+    //validar que todos los campos esten llenos
+    if (
+      mascota === "" ||
+      propietario === "" ||
+      fecha === "" ||
+      hora === "" ||
+      sintomas === ""
+    ) {
+      this.setState({ error: true });
+
+      //detener la ejecución
+      return;
     }
 
-    handleChange = e => {
-        const { cita } = this.state;
-        console.log(`${e.target.name}: ${e.target.value}`);
-
-        //colocar lo que el usuario escribe en el state
-        this.setState({
-            cita: {
-                ...cita,
-                [e.target.name]: e.target.value
-            }
-        })
-    }
+    //Agregar la cita al state de App
+  };
 
   render() {
-      const { cita } = this.state;
-      console.log(cita)
+    const { mascota, propietario, fecha, hora, sintomas } = this.state.cita;
+
     return (
       <div className="card mt-5 py-5">
         <div className="card-body">
           <h2 className="card-title text-center mb-5">
             Llena el formulario para crear una nueva cita
           </h2>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <div className="form-group row">
               <label className="col-sm4 col-lg-2 col-form-label">
                 Nombre de la mascota
@@ -50,7 +76,7 @@ class NuevaCita extends Component {
                   placeholder="Nombre de la mascota"
                   name="mascota"
                   onChange={this.handleChange}
-                  value={cita.mascota}
+                  value={mascota}
                 />
               </div>
             </div>
@@ -65,33 +91,29 @@ class NuevaCita extends Component {
                   placeholder="Nombre del dueño"
                   name="propietario"
                   onChange={this.handleChange}
-                  value={cita.propietario}
+                  value={propietario}
                 />
               </div>
             </div>
             <div className="form-group row">
-              <label className="col-sm4 col-lg-2 col-form-label">
-                Fecha
-              </label>
+              <label className="col-sm4 col-lg-2 col-form-label">Fecha</label>
               <div className="col-sm-8 col-lg-4">
                 <input
                   type="date"
                   className="form-control"
                   name="fecha"
                   onChange={this.handleChange}
-                  value={cita.fecha}
+                  value={fecha}
                 />
               </div>
-              <label className="col-sm4 col-lg-2 col-form-label">
-                Hora
-              </label>
+              <label className="col-sm4 col-lg-2 col-form-label">Hora</label>
               <div className="col-sm-8 col-lg-4">
                 <input
                   type="time"
                   className="form-control"
                   name="hora"
                   onChange={this.handleChange}
-                  value={cita.hora}
+                  value={hora}
                 />
               </div>
             </div>
@@ -100,19 +122,19 @@ class NuevaCita extends Component {
                 Síntomas
               </label>
               <div className="col-sm-8 col-lg-10">
-                  <textarea
-                    className="form-control"
-                    name="sintomas"
-                    placeholder="Describe los síntomas"
-                    onChange={this.handleChange}
-                    value={cita.sintomas}
-                  />
+                <textarea
+                  className="form-control"
+                  name="sintomas"
+                  placeholder="Describe los síntomas"
+                  onChange={this.handleChange}
+                  value={sintomas}
+                />
               </div>
             </div>
-            <input 
-                type="submit" 
-                className="py-3 mt-2 btn btn-success btn-block"
-                value="Agregar Nueva Cita"    
+            <input
+              type="submit"
+              className="py-3 mt-2 btn btn-success btn-block"
+              value="Agregar Nueva Cita"
             />
           </form>
         </div>
