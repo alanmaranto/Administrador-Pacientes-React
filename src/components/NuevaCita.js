@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import uuid from 'uuid'
+import uuid from "uuid";
 
 const initialState = {
   cita: {
@@ -34,7 +34,7 @@ class NuevaCita extends Component {
 
   //cuando el usuario envia el formualrio
   handleSubmit = e => {
-    const { crearNuevaCita} = this.props;
+    const { crearNuevaCita } = this.props;
     e.preventDefault();
 
     //extraer los valores del state
@@ -55,16 +55,16 @@ class NuevaCita extends Component {
     }
 
     //generar objeto con los datos
-    const nuevaCita = {...this.state.cita}
+    const nuevaCita = { ...this.state.cita };
     nuevaCita.id = uuid();
 
     //Agregar la cita al state de App
-    crearNuevaCita(nuevaCita)
-
+    crearNuevaCita(nuevaCita);
   };
 
   render() {
     const { mascota, propietario, fecha, hora, sintomas } = this.state.cita;
+    const { error } = this.state;
 
     return (
       <div className="card mt-5 py-5">
@@ -72,6 +72,11 @@ class NuevaCita extends Component {
           <h2 className="card-title text-center mb-5">
             Llena el formulario para crear una nueva cita
           </h2>
+          {error ? (
+            <div className="alert alert-danger mt-2 mb-5">
+              Todos los campos son obligatorios
+            </div>
+          ) : null}
           <form onSubmit={this.handleSubmit}>
             <div className="form-group row">
               <label className="col-sm4 col-lg-2 col-form-label">
