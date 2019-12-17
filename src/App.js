@@ -25,6 +25,26 @@ class App extends Component {
     this.setState({ citas: nuevaCita });
   };
 
+  //elimina las citas del state
+  eliminarCita = id => {
+    const { citas } = this.state;
+    console.log(id)
+    console.log('diste click')
+
+    //tomar una copia del state
+    const citasActuales = [...citas];
+
+    //utilizar filter para crear un array con solo el id
+    const citasRestantes = citasActuales.filter(cita => cita.id !== id )
+
+    //actualizar el state
+    this.setState({ 
+      citas: citasRestantes
+    })
+
+
+  }
+
   render() {
     const { citas } = this.state;
     return (
@@ -38,6 +58,7 @@ class App extends Component {
           <div className="mt-5 col-md-10 mx-auto">
             <ListaCitas 
               citas={citas}
+              eliminarCita={this.eliminarCita}
             />
           </div>
         </div>
