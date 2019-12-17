@@ -14,6 +14,22 @@ class App extends Component {
     this.state = initialState;
   }
 
+  //cuando la app carga: Aqui devolvemos el string a array al momento de setear el estado
+  componentDidMount(){
+    const citasLS = localStorage.getItem('citas');
+    if (citasLS) {
+      this.setState({
+        citas: JSON.parse(citasLS)
+      })
+    }
+  }
+
+  //cuando eliminamos o agregamos una nueva cita(nota: localStorage solo soporta strings, por eso convertimos el arreglo)
+    componentDidUpdate(){
+      const { citas } = this.state;
+      localStorage.setItem('citas', JSON.stringify(citas))
+    }
+
   crearNuevaCita = datos => {
     const { citas } = this.state;
     console.log(datos);
