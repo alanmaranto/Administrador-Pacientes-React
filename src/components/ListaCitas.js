@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 import Cita from "./Cita";
 
 const ListaCitas = ({ citas, eliminarCita }) => (
@@ -13,5 +14,10 @@ const ListaCitas = ({ citas, eliminarCita }) => (
     </div>
   </div>
 );
+
+ListaCitas.propTypes = {
+  citas: PropTypes.array.isRequired,
+  eliminarCita: PropTypes.func.isRequired,
+}
 
 export default ListaCitas;
